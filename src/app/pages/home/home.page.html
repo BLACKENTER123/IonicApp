@@ -1,21 +1,25 @@
-<ion-header mode="md">
-  <ion-toolbar>
-    <ion-title>home</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true">
  
   <div class="glass-content">
  
      <ion-grid>
+
+
+           <ion-row>
+            <ion-col size="12">
+              <ion-searchbar placeholder="buscar" inputmode="decimal" type="decimal" (input)="onSearchChange($event)" [debounce]="250" showCancelButton="always"></ion-searchbar>
+            </ion-col>
+           </ion-row>
+
+
         <ion-row >
-           <ion-col *ngFor="let c of characters" size-lg="6" size-md="6" size-sm="12" size="12">
+           <ion-col *ngFor="let c of characters" size-lg="6" size-md="6" size-sm="12" size="12" [routerLink]="['/character/' + c.id]" routerLinkActive="router-link-active" >
             <ion-card>
 
                <ion-grid>
                   <ion-row>
-
                      <ion-col size-lg="4" size-md="4" size-sm="4" size="12">
                         <ion-avatar>
                            <img [src]="c.image">
@@ -38,6 +42,11 @@
         </ion-row>
      </ion-grid>
 
+     <ion-infinite-scroll threshold="25%" [disabled]="false" position="bottom" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    
+    
   </div>
 
 </ion-content>
